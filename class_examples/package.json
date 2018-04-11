@@ -1,0 +1,20 @@
+{
+  "name": "cs493",
+  "version": "1.0.0",
+  "description": "Serving with Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "serving",
+    "express",
+    "apis"
+  ],
+  "author": "Nick Wong <wongnich@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "figlet": "^1.2.0"
+  }
+}
