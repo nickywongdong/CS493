@@ -4,3 +4,6 @@
 [submodule "assign2"]
 	path = assign2
 	url = git@github.com:OSU-CS493-Sp18/assignment-2-nickywongdong.git
+[submodule "assign3"]
+	path = assign3
+	url = git@github.com:OSU-CS493-Sp18/assignment-3-nickywongdong.git
