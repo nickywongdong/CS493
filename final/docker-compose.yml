@@ -1,0 +1,48 @@
+version: '3.6'
+services:
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo-data:/var/lib/mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE:      ${MONGODB_DATABASE}
+
+  api:
+    build: .
+    image: final-api
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      MONGODB_USER: ${MONGODB_USER}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
+
+  mysql:
+    image: mysql:5
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./db-init/:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+volumes:
+  mysql-data:
+    name: final-mysql-data
+  mongo-data:
+    name: users-mongodb-data
