@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const validation = require('../lib/validation');
 const { getReviewsByBeerID } = require('./reviews');
+const { getphotosByBeerID } = require('./photos');
 const { getManufacturerByBeerID } = require('./manufacturer');
 
 
@@ -182,6 +183,13 @@ function getBeerByID(beerID, mysqlPool) {
   }).then((reviews) => {
     if (reviews) {
       returnBeer.reviews = reviews;
+      return getphotosByBeerID(beerID, mysqlPool);
+    } else {
+      return Promise.resolve(null);
+    }
+  }).then((photos) => {
+    if (photos) {
+      returnBeer.photos = photos;
       return getManufacturerByBeerID(beerID, mysqlPool);
     } else {
       return Promise.resolve(null);

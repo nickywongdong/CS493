@@ -68,14 +68,7 @@ router.post('/', function (req, res, next) {
      * Make sure the user is not trying to review the same business twice.
      * If they're not, then insert their review into the DB.
      */
-    hasUserReviewedBeer(req.body.userid, req.body.beerid, mysqlPool)
-      .then((hasUserReviewedBeer) => {
-        if (!hasUserReviewedBeer) {
-          return Promise.reject(403);
-        } else {
-          return insertNewReview(req.body, mysqlPool);
-        }
-      })
+     insertNewReview(req.body, mysqlPool)
       .then((id) => {
         res.status(201).json({
           id: id,
@@ -87,11 +80,7 @@ router.post('/', function (req, res, next) {
       })
       .catch((err) => {
         console.log(err);
-        if (err === 403) {
-          res.status(403).json({
-            error: "User has already posted a review of this beer"
-          });
-        } else {
+        if (err === 500) {
           res.status(500).json({
             error: "Error inserting review into DB.  Please try again later."
           });

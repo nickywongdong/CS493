@@ -27,7 +27,7 @@ function getManufacturerByBeerID(beerID, mysqlPool) {
       if (err) {
         reject(err);
       } else {
-        resolve(results[0]);
+        resolve(results);
       }
     });
   });
@@ -170,6 +170,18 @@ router.post('/', function (req, res, next) {
   }
 });
 
+// function getManufacturerByID(manufacturerID, mysqlPool) {
+//   return new Promise((resolve, reject) => {
+//     mysqlPool.query('SELECT * FROM manufacturers WHERE id = ?', [ manufacturerID ], function (err, result) {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(result.affectedRows > 0);
+//       }
+//     });
+//   });
+// }
+
 /*
  * Executes a MySQL query to fetch a single specified manufacturer based on its ID.
  * Returns a Promise that resolves to an object containing the requested
@@ -194,7 +206,7 @@ function getManufacturerByID(manufacturerID, mysqlPool) {
 router.get('/:manufacturerID', function (req, res, next) {
   const mysqlPool = req.app.locals.mysqlPool;
   const manufacturerID = parseInt(req.params.manufacturerID);
-  getManufacturerByID(manufacturerID, mysqlPool)
+  getBeerByManufacturerID(manufacturerID, mysqlPool)
     .then((manufacturer) => {
       if (manufacturer) {
         res.status(200).json(manufacturer);
@@ -275,7 +287,6 @@ function deleteManufacturerByID(manufacturerID, mysqlPool) {
       }
     });
   });
-
 }
 
 /*
@@ -310,8 +321,8 @@ router.delete('/:manufacturerID', function (req, res, next) {
 function getBeerByManufacturerID(manufacturerID, mysqlPool) {
   return new Promise((resolve, reject) => {
     mysqlPool.query(
-      'SELECT * FROM beers WHERE manufacturerid = ?',
-      [ manufacturerid ],
+      'SELECT * FROM beers WHERE manufacturerID = ?',
+      [ manufacturerID ],
       function (err, results) {
         if (err) {
           reject(err);

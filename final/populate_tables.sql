@@ -57,6 +57,7 @@ values
 ('1', '2.5', 'Bad Beer', '9', '8'),
 ('2', '3.5', '', '10', '9');
 
+  
 -- Drop Manufacturers table --
 DROP TABLE IF EXISTS `manufacturers`;
 
