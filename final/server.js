@@ -17,7 +17,7 @@ const mysqlPassword = process.env.MYSQL_PASSWORD;
 
 const mongoHost = process.env.MONGODB_HOST;
 const mongoPort = process.env.MONGODB_PORT || '27017';
-const mongoDBName = process.env.MONGODB_DATABASE;
+const mongoDBName = process.env.MONGODB_DATABASE
 const mongoUser = process.env.MONGODB_USER;
 const mongoPassword = process.env.MONGODB_PASSWORD;
 
@@ -55,10 +55,7 @@ app.use('*', function (req, res, next) {
   });
 });
 
-console.log("Before mongoclient.connect");
-
 MongoClient.connect(mongoURL, {native_parser:true}, function (err, client) {
-  console.log(err);
   if (!err) {
     app.locals.mongoDB = client.db(mongoDBName);
     app.listen(port, function() {

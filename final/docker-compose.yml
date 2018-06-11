@@ -5,11 +5,13 @@ services:
     image: mongo:latest
     restart: always
     volumes:
-      - mongo-data:/var/lib/mongo
+      - mongo-data:/data/db
+      - ./db-init/:/docker-entrypoint-initdb.d
+      
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE:      ${MONGODB_DATABASE}
+      MONGO_INITDB_DATABASE:      ${MONGODB_INITDB_DATABASE}
 
   api:
     build: .
@@ -28,6 +30,9 @@ services:
       MONGODB_PASSWORD: ${MONGODB_PASSWORD}
       MONGODB_HOST: mongodb
       MONGODB_PORT: 27017
+    command: >
+      bash -c "./wait-for-it.sh mongodb:27017
+      && ./wait-for-it.sh redis:8000 -- node server.js" 
 
   mysql:
     image: mysql:5

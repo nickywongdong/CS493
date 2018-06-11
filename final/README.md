@@ -8,6 +8,9 @@ Members:
 * Michael Rodriguez
 * Nicholas Wong
 * Shane Barrantes 
+
+[Link to Postman API endpoints](https://documenter.getpostman.com/view/4256353/RWEZTicJ)
+
 					
 ## High-level description of the purpose of the API
 We will be creating a RESTful API that will allow a user to interact with resources consisting of beers, manufactures and
@@ -22,26 +25,27 @@ percentage, calories, type, manufacturer information and reviews.
 
 
 * Beer 
-  * ID
-  * beerID
+  * id
+  * manufacturerid
   * Name 
-  * Alcohol per
-  * IBU
+  * abv
+  * ibu
   * Calories 
-  * Type 
+  * Type
 * Manufacturer
-  * ID
-  * manufacturerID 
+  * id
+  * beerid
   * City
   * State
   * Zip
   * Phone number
 * Reviews 
-  * ID
-  * userID
-  * beerID
-  * Comments 
-  * Star Rating
+  * id
+  * userid
+  * beerid
+  * dollars
+  * stars 
+  * review
 
 ## High-level description of the specific endpoints our API 
 This API will allow users to interact with the beer, manufacturer and review resources using actions such as GET, POST, PUT, and DELETE. The users will be able to get, add, modify and delete from the reviews resource and will be able to get and add from the beers and manufacturer resources. 
@@ -56,7 +60,7 @@ This API will allow users to interact with the beer, manufacturer and review res
 {
 "beerID": "10",
 "name": "Pacifico",
-"alcohol per": "5.4",
+"abv": "5.4",
 "ibu": "6",
 "calories": "146", 
 "type": "pilsner"
